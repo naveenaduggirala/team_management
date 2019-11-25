@@ -10,6 +10,16 @@ from django.db import IntegrityError
 
 
 class TeamListViewSet(APIView):
+		def get(self, request, format=None):
+			print "hi"
+			team_obj_list = Team.objects.all()
+			print team_obj_list,'team_obj_list'
+			team_list = team_obj_list.values('name','logo','club_state')
+			print team_list,"team_list"
+			context_data = {"success":True,"data":team_list}
+			return Response(context_data)
+
+
 		def post(self, request,format=None):
 				serializer = TeamSerializer(data=request.data)
 				if serializer.is_valid():
