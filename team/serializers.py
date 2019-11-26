@@ -17,7 +17,7 @@ class MatchCreateSerializer(serializers.Serializer):
 	contestant2 = serializers.CharField()
 
 class CreatPointsWinnerSerializer(serializers.Serializer):
-	match_id = serializers.CharField()
+	match = serializers.CharField()
 	winner = serializers.CharField()
 	contestant1_points = serializers.CharField()
 	contestant2_points = serializers.CharField()

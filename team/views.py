@@ -84,6 +84,7 @@ class MatchCreateViewSet(APIView):
 	def get(self,request,format=None):
 		match_list = []
 		for each in Matches.objects.all():
+			print each,"each"
 			team1 = str(each.contestant1.name)
 			team2 = str(each.contestant2.name)
 			match_obj ={
@@ -132,10 +133,11 @@ class CreatPointWinnerMatches(APIView):
 		return Response(context_data)
 
 	def post(self,request,format=None):
+		print request.data
 		serializers = CreatPointsWinnerSerializer(data=request.data)
 		if serializers.is_valid():
 			try:
-				match_obj = Matches.objects.get(pk=request.data['match_id'])	
+				match_obj = Matches.objects.get(pk=request.data['match'])	
 			except Matches.DoesNotExist as e:
 				context_data = {"success" : False, "errors" : {"message":"Matches does not exist"}}
 
@@ -151,7 +153,7 @@ class CreatPointWinnerMatches(APIView):
 			except Exception as e:
 				context_data = {"success" : False, "errors" : {"message":str(e)}}
 		else:
-			context_data = {"success" : False, "errors" : {"message":serializer.errors}}
+			context_data = {"success" : False, "errors" : {"message":serializers.errors}}
 		return Response(context_data)
 
 
