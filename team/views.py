@@ -27,7 +27,6 @@ class TeamListViewSet(APIView):
 				"name": team_obj['name'],
 				"club_state": team_obj['club_state']              
 				}
-
 				if 'image' in request.data:
 					if request.data['image']:
 						team_form.update({"logo" : request.data['image']})
@@ -84,7 +83,6 @@ class MatchCreateViewSet(APIView):
 	def get(self,request,format=None):
 		match_list = []
 		for each in Matches.objects.all():
-			print each,"each"
 			team1 = str(each.contestant1.name)
 			team2 = str(each.contestant2.name)
 			match_obj ={
@@ -128,12 +126,11 @@ class MatchCreateViewSet(APIView):
 
 class CreatPointWinnerMatches(APIView):
 	def get(self,request,format=None):
-		match_points_list = Points.objects.values("match__contestant1__name","match__contestant1__name","winner","contestant1_points","contestant2_points")
+		match_points_list = Points.objects.values("match__contestant1__name","match__contestant2__name","winner","contestant1_points","contestant2_points")
 		context_data ={"success":True,"data":match_points_list}
 		return Response(context_data)
 
 	def post(self,request,format=None):
-		print request.data
 		serializers = CreatPointsWinnerSerializer(data=request.data)
 		if serializers.is_valid():
 			try:
