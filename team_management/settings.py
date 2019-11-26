@@ -25,8 +25,15 @@ SECRET_KEY = '*o0k1z1%57%7xkp!nq)c4wv%lmoqa+s))$fz9)wmoub@4n=nxw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http://10.10.10.169:4200',
+# )
+# add_header 'Access-Control-Allow-Origin' 'http://localhost:4200' always;
+# add_header 'Access-Control-Allow-Origin' 'http://10.10.10.169:4200/home' always;
+# Access-Control-Allow-Origin: *
 
 # Application definition
 
@@ -39,20 +46,31 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize',
+   
+    
     'rest_framework',
     'rest_framework.authtoken',
     'team',
+    'corsheaders',
+    
 ]
 
+
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+   
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ROOT_URLCONF = 'team_management.urls'
 
@@ -118,6 +136,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+MEDIA_ROOT='/home/user/projects/team_management/media'
+MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
